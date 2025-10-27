@@ -21,6 +21,8 @@ function correct_answer_clicked(answer_number) {
     if (transitioning) {
         return
     }
+	const audio = new Audio('audio/select_correct.mp3');
+	audio.play();
     transitioning = true
     let question_holder = document.getElementById("QuestionHolder")
     let option = question_holder.children[answer_number-1]
@@ -35,6 +37,8 @@ function incorrect_answer_clicked(answer_number) {
     if (transitioning) {
         return
     }
+	const audio = new Audio('audio/select_incorrect.mp3');
+	audio.play();
     transitioning = true
     let question_holder = document.getElementById("QuestionHolder")
     let option = question_holder.children[answer_number-1]
@@ -48,6 +52,8 @@ function incorrect_answer_clicked(answer_number) {
             }
             i++
         }
+		const audio2 = new Audio('audio/click.mp3');
+		audio2.play();
         setTimeout(() => {
             score += 0
             next_question()
@@ -56,6 +62,8 @@ function incorrect_answer_clicked(answer_number) {
 }
 
 function next_question() {
+	const audio = new Audio('audio/swoop.mp3');
+	audio.play();
     let main = document.getElementById("Main")
     main.style.transform = "translate(-100vw, 0)"
     setTimeout(() => {
@@ -106,6 +114,16 @@ function load_question(question_number) {
             answer.onclick = () => incorrect_answer_clicked(i + 1)
         }
 
+		// add hover sound
+		answer.onmouseenter = () => {
+			if (!transitioning) {
+				// const audio = new Audio('audio/tap.mp3');
+				// // randomize pitch
+				// audio.playbackRate = Math.random() * (1.5 - 0.5) + 0.8;
+				// audio.play();
+			}
+		}
+
         question_holder.appendChild(answer)
     }
 
@@ -115,9 +133,15 @@ function load_question(question_number) {
     question_numberer.textContent = "Question " + question_number + "/" + questions.length
     main.appendChild(question_numberer)
     main.appendChild(container)
+	transitioning = true
+	setTimeout(() => {
+		transitioning = false
+	}, 300);
 }
 
 function end_quiz() {
+	const audio = new Audio('audio/quiz_end.mp3');
+	audio.play();
     let main = document.getElementById("Main")
     main.style.transition = "none"
     main.innerHTML = ""
@@ -126,4 +150,30 @@ function end_quiz() {
     let end_header = document.createElement("h3")
     end_header.textContent = "Your score: "+score+" out of "+questions.length
     main.appendChild(end_header)
+
+	let retry_button = document.createElement("div")
+	retry_button.classList.add("retry_button")
+	retry_button.textContent = "Retry Quiz"
+	retry_button.onclick = () => {
+		question_number = 1
+		score = 0
+		load_question(question_number)
+		const audio = new Audio('audio/bloop.mp3');
+		audio.play();
+	}
+	main.appendChild(retry_button)
+
+	let home_button = document.createElement("div")
+	home_button.classList.add("retry_button")
+	home_button.textContent = "Return Home"
+	home_button.onclick = () => {
+		home()
+		const audio = new Audio('audio/bloop.mp3');
+		audio.play();
+	}
+	main.appendChild(home_button)
+}
+
+function home() {
+	window.open("index.html", "_self");
 }

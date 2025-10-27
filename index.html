@@ -11,16 +11,20 @@
             function run() {
                 console.log("button pressed")
                 let expander = document.getElementById("Expander")
-                expander.style.width = "2px"
-                expander.style.height = "2px"
-                expander.style.scale = "2000"
+                expander.style.width = "1%"
+                expander.style.height = "1%"
+                expander.style.scale = "300"
 
                 let main = document.getElementById("Main")
                 main.style.transform = "translate(-100vw, 0)"
 
+				const audio = new Audio('audio/bloop.mp3');
+				audio.play();
+
                 setTimeout(() => {
                     window.open("quiz.html", "_self");
                 }, 500);
+				
             }
         </script>
     </head>
