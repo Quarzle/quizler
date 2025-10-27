@@ -55,8 +55,8 @@ button:hover {
 }
 
 h2 {
-    margin-top: 10%;
-    margin-bottom: 10%;
+	width: 80%;
+	margin: 10%;
     font-size: 2.5em;
     animation: fade_in ease forwards 0.2s;
 	text-shadow: 0 0 15px rgba(255, 255, 255, 0.5);
