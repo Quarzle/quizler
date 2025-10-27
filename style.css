@@ -136,6 +136,13 @@ button:hover {
 	display: block;
 }
 
+.dropdown-content a.active {
+	border-radius: 5px;
+	background-color: #ccc;
+	/* text-decoration: underline; */
+	display: block;
+}
+
 /* Change color of dropdown links on hover */
 .dropdown-content a:hover {
 	background-color: #ddd;

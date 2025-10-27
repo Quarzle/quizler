@@ -10,6 +10,12 @@ document.addEventListener("DOMContentLoaded", () => {
 	if (question_shuffle == "true") {
 		document.getElementById("QuestionShuffleToggle").classList.add("toggled");
 	}
+
+	if (localStorage.getItem("quiz_number") == null) {
+		localStorage.setItem("quiz_number", "1");
+	} else {
+		quiz(JSON.parse(localStorage.getItem("quiz_number")));
+	}
 });
 
 function run() {
@@ -55,6 +61,13 @@ function toggle_question_shuffle() {
 }
 
 function quiz(quiz_number) {
-	let quiz_number = 0;
-	localStorage.setItem("quiz_number", quiz_number.toString());
+	localStorage.setItem("quiz_number", JSON.stringify(quiz_number));
+	let dropdown_content = document.getElementById("DropdownContent");
+	for (let dropdown_link of dropdown_content.children) {
+		dropdown_link.classList.remove("active");
+	}
+	dropdown_content.children[quiz_number-1].classList.add("active");
+
+	let begin_button = document.getElementById("BeginButton");
+	// begin_button.textContent("");
 }

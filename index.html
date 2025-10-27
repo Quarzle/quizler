@@ -13,13 +13,13 @@
         <div class="main" id="Main">
             <h1 class="hero">Welcome to the quiz!</h1>
             <div class="centre">
-                <button class="begin_button" onclick="run()">Test your knowledge</button>
+                <button class="begin_button" onclick="run()" id="BeginButton">Test your knowledge</button>
                 <div class="dropdown">
                     <button class="dropbtn">☰</button>
-                    <div class="dropdown-content">
-                        <a onclick="quiz(1)">Quiz 1</a>
-                        <a onclick="quiz(2)">Quiz 2</a>
-                        <a onclick="quiz(3)">Quiz 3</a>
+                    <div class="dropdown-content" id="DropdownContent">
+                        <a onclick="quiz(1)" class="active">Random quiz</a>
+                        <a onclick="quiz(2)">Chemistry quiz</a>
+                        <!-- <a onclick="quiz(3)">Quiz 3</a> -->
                     </div>
                 </div>
             </div>
