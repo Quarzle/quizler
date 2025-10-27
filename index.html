@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>Quiz</title>
+        <meta name="description" content="a quiz">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="style.css">
+        <script>
+            function run() {
+                console.log("button pressed")
+                let expander = document.getElementById("Expander")
+                expander.style.width = "2px"
+                expander.style.height = "2px"
+                expander.style.scale = "2000"
+
+                let main = document.getElementById("Main")
+                main.style.transform = "translate(-100vw, 0)"
+
+                setTimeout(() => {
+                    window.open("quiz.html", "_self");
+                }, 500);
+            }
+        </script>
+    </head>
+    <body>
+        <div class="main" id="Main">
+            <h1 class="hero">Welcome to the quiz!</h1>
+            <button class="begin_button centre" onclick="run()">Test your knowledge</button>
+        </div>
+        <div class="expander" id="Expander"></div>
+    </body>
+</html>
