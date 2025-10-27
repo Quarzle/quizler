@@ -7,31 +7,29 @@
         <meta name="description" content="a quiz">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" href="style.css">
-        <script>
-            function run() {
-                console.log("button pressed")
-                let expander = document.getElementById("Expander")
-                expander.style.width = "1%"
-                expander.style.height = "1%"
-                expander.style.scale = "300"
-
-                let main = document.getElementById("Main")
-                main.style.transform = "translate(-100vw, 0)"
-
-				const audio = new Audio('audio/bloop.mp3');
-				audio.play();
-
-                setTimeout(() => {
-                    window.open("quiz.html", "_self");
-                }, 500);
-				
-            }
-        </script>
+        <script src="homepage.js"></script>
     </head>
     <body>
         <div class="main" id="Main">
             <h1 class="hero">Welcome to the quiz!</h1>
             <button class="begin_button centre" onclick="run()">Test your knowledge</button>
+			
+			<br><br>
+
+			<div class="settings_line_toggle" onclick="toggle_option_shuffle()">
+				<p>Toggle option shuffle</p>
+				<div class="toggle" id="OptionShuffleToggle">
+					<div class="toggle_circle"></div>
+				</div>
+			</div>
+
+			<div class="settings_line_toggle" onclick="toggle_question_shuffle()">
+				<p>Toggle question shuffle</p>
+				<div class="toggle" id="QuestionShuffleToggle">
+					<div class="toggle_circle"></div>
+				</div>
+			</div>
+
         </div>
         <div class="expander" id="Expander"></div>
     </body>

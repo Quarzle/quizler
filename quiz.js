@@ -1,19 +1,35 @@
 let question_number = 1
 let score = 0
-transitioning = false
+let transitioning = false
+let option_shuffle = false
+let question_shuffle = false
 
 const questions = [
-    ["Question 1: What is the square root of 169", "1", "-44", "13", "67", [0, 0, 1, 0]],
-    ["Question 2: How many moons does jupiter have?", "Exactly 1", "More than 11", "I don't know", "I don't care", [0, 1, 0, 0]],
-    ["Question 3: A trigonal planar shape forms when a molecule has what number of bonded electron regions around the central atom?", "1", "2", "3", "4", [0, 0, 1, 0]],
-    ["Question 4: How many letters are in the english alphabet?", "1", "26", "36", "24", [0, 1, 0, 0]],
-    ["Question 5: What year did the american revolution start?", "1776", "6767", "1936", "2024", [1, 0, 0, 0]],
-    ["Question 6: What clef puts middle c in the middle of the stave?", "The treble clef", "The alto clef", "The tenor clef", "The bass clef", [0, 0, 1, 0]],
-    ["Question 7: What is the name of a twelve sided shape?", "Heptagon", "Dodecagon", "Icosahedron", "Dodecahedron", [0, 1, 0, 1]],
-    ["Question 8: which of the following is a square root of 1?", "-1", "-2", "0.1", "10", [1, 0, 0, 0]]
+    ["What is the square root of 169", "1", "-44", "13", "67", [0, 0, 1, 0]],
+    ["How many moons does jupiter have?", "Exactly 1", "More than 11", "I don't know", "I don't care", [0, 1, 0, 0]],
+    ["A trigonal planar shape forms when a molecule has what number of bonded electron regions around the central atom?", "1", "2", "3", "4", [0, 0, 1, 0]],
+    ["How many letters are in the english alphabet?", "1", "26", "36", "24", [0, 1, 0, 0]],
+    ["What year did the american revolution start?", "1776", "6767", "1936", "2024", [1, 0, 0, 0]],
+    ["What clef puts middle c in the middle of the stave?", "The treble clef", "The alto clef", "The tenor clef", "The bass clef", [0, 0, 1, 0]],
+    ["What is the name of a twelve sided shape?", "Heptagon", "Dodecagon", "Icosahedron", "Dodecahedron", [0, 1, 0, 1]],
+    ["which of the following is a square root of 1?", "-1", "-2", "0.1", "10", [1, 0, 0, 0]]
 ]
 
 document.addEventListener('DOMContentLoaded', () => {
+	let option_shuffle_setting = localStorage.getItem("option_shuffle")
+	if (option_shuffle_setting == "false") {
+		option_shuffle = false
+	} else if (option_shuffle_setting == "true") {
+		option_shuffle = true
+	}
+
+	let question_shuffle_setting = localStorage.getItem("question_shuffle")
+	if (question_shuffle_setting == "true") {
+		question_shuffle = true
+	} else if (question_shuffle_setting == "false") {
+		question_shuffle = false
+	}
+
     load_question(question_number)
 });
 
@@ -79,8 +95,15 @@ function next_question() {
 }
 
 function load_question(question_number) {
+	if (question_shuffle && question_number == 1) {
+		for (let i = questions.length - 1; i > 0; i--) { //magic ig
+			const j = Math.floor(Math.random() * (i + 1))
+			;[questions[i], questions[j]] = [questions[j], questions[i]]
+		}
+	}
+
     transitioning = false
-        let main = document.getElementById("Main")
+    let main = document.getElementById("Main")
     main.style.transition = "none"
     main.innerHTML = ""
     main.style.transform = "translate(0, 0)"
@@ -101,18 +124,33 @@ function load_question(question_number) {
     let question_holder = document.createElement("div")
     question_holder.classList.add("answer_container")
     question_holder.id = "QuestionHolder"
+	if (option_shuffle) {
+		let options = []
+		for (let i = 0; i < 4; i++) {
+			options.push([question[i + 1], question[5][i]])
+		}
 
-    // Create each answer
-    for (let i = 0; i < 4; i++) {
-        let answer = document.createElement("div")
-        answer.classList.add("answer")
-        answer.textContent = question[i + 1]
+		for (let i = options.length - 1; i > 0; i--) {
+			const j = Math.floor(Math.random() * (i + 1))
+			;[options[i], options[j]] = [options[j], options[i]]
+		}
 
-        if (question[5][i] === 1) {
-            answer.onclick = () => correct_answer_clicked(i + 1)
-        } else {
-            answer.onclick = () => incorrect_answer_clicked(i + 1)
-        }
+		for (let i = 0; i < 4; i++) {
+			question[i + 1] = options[i][0]
+			question[5][i] = options[i][1]
+		}
+	}
+
+	for (let i = 0; i < 4; i++) {
+		let answer = document.createElement("div")
+		answer.classList.add("answer")
+		answer.textContent = question[i + 1]
+
+		if (question[5][i] === 1) {
+			answer.onclick = () => correct_answer_clicked(i + 1)
+		} else {
+			answer.onclick = () => incorrect_answer_clicked(i + 1)
+		}
 
 		// add hover sound
 		answer.onmouseenter = () => {
@@ -124,8 +162,8 @@ function load_question(question_number) {
 			}
 		}
 
-        question_holder.appendChild(answer)
-    }
+		question_holder.appendChild(answer)
+	}
 
     container.appendChild(question_holder)
 
