@@ -1,3 +1,10 @@
+new Audio('audio/bloop.mp3');
+new Audio('audio/click.mp3');
+new Audio('audio/quiz_end.mp3');
+new Audio('audio/select_correct.mp3');
+new Audio('audio/select_incorrect.mp3');
+new Audio('audio/swoop.mp3');
+
 let question_number = 1
 let score = 0
 let transitioning = false

@@ -1,3 +1,6 @@
+new Audio('audio/bloop.mp3');
+new Audio('audio/click.mp3');
+
 document.addEventListener("DOMContentLoaded", () => {
 	let option_shuffle = localStorage.getItem("option_shuffle")
 	if (option_shuffle == "true") {
