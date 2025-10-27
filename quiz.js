@@ -17,7 +17,7 @@ const questions = [
     ["A trigonal planar shape forms when a molecule has what number of bonded electron regions around the central atom?", "1", "2", "3", "4", [0, 0, 1, 0]],
     ["How many letters are in the english alphabet?", "1", "26", "36", "24", [0, 1, 0, 0]],
     ["What year did the american revolution start?", "1776", "6767", "1936", "2024", [1, 0, 0, 0]],
-    ["What clef puts middle c in the middle of the stave?", "The treble clef", "The alto clef", "The tenor clef", "The bass clef", [0, 0, 1, 0]],
+    ["What clef puts middle c in the middle of the stave?", "The treble clef", "The alto clef", "The tenor clef", "The bass clef", [0, 1, 0, 0]],
     ["What is the name of a twelve sided shape?", "Heptagon", "Dodecagon", "Icosahedron", "Dodecahedron", [0, 1, 0, 1]],
     ["which of the following is a square root of 1?", "-1", "-2", "0.1", "10", [1, 0, 0, 0]]
 ]
