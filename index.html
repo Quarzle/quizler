@@ -12,8 +12,17 @@
     <body>
         <div class="main" id="Main">
             <h1 class="hero">Welcome to the quiz!</h1>
-            <button class="begin_button centre" onclick="run()">Test your knowledge</button>
-			
+            <div class="centre">
+                <button class="begin_button" onclick="run()">Test your knowledge</button>
+                <div class="dropdown">
+                    <button class="dropbtn">☰</button>
+                    <div class="dropdown-content">
+                        <a onclick="quiz(1)">Quiz 1</a>
+                        <a onclick="quiz(2)">Quiz 2</a>
+                        <a onclick="quiz(3)">Quiz 3</a>
+                    </div>
+                </div>
+            </div>
 			<br><br>
 
 			<div class="settings_line_toggle" onclick="toggle_option_shuffle()">

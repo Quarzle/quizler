@@ -5,11 +5,11 @@ new Audio('audio/select_correct.mp3');
 new Audio('audio/select_incorrect.mp3');
 new Audio('audio/swoop.mp3');
 
-let question_number = 1
-let score = 0
-let transitioning = false
-let option_shuffle = false
-let question_shuffle = false
+let question_number = 1;
+let score = 0;
+let transitioning = false;
+let option_shuffle = false;
+let question_shuffle = false;
 
 const questions = [
     ["What is the square root of 169", "1", "-44", "13", "67", [0, 0, 1, 0]],
@@ -20,66 +20,66 @@ const questions = [
     ["What clef puts middle c in the middle of the stave?", "The treble clef", "The alto clef", "The tenor clef", "The bass clef", [0, 1, 0, 0]],
     ["What is the name of a twelve sided shape?", "Heptagon", "Dodecagon", "Icosahedron", "Dodecahedron", [0, 1, 0, 1]],
     ["which of the following is a square root of 1?", "-1", "-2", "0.1", "10", [1, 0, 0, 0]]
-]
+];
 
 document.addEventListener('DOMContentLoaded', () => {
-	let option_shuffle_setting = localStorage.getItem("option_shuffle")
+	let option_shuffle_setting = localStorage.getItem("option_shuffle");
 	if (option_shuffle_setting == "false") {
-		option_shuffle = false
+		option_shuffle = false;
 	} else if (option_shuffle_setting == "true") {
-		option_shuffle = true
+		option_shuffle = true;
 	}
 
-	let question_shuffle_setting = localStorage.getItem("question_shuffle")
+	let question_shuffle_setting = localStorage.getItem("question_shuffle");
 	if (question_shuffle_setting == "true") {
-		question_shuffle = true
+		question_shuffle = true;
 	} else if (question_shuffle_setting == "false") {
-		question_shuffle = false
+		question_shuffle = false;
 	}
 
-    load_question(question_number)
+    load_question(question_number);
 });
 
 function correct_answer_clicked(answer_number) {
     if (transitioning) {
-        return
+        return;
     }
 	const audio = new Audio('audio/select_correct.mp3');
 	audio.play();
-    transitioning = true
-    let question_holder = document.getElementById("QuestionHolder")
-    let option = question_holder.children[answer_number-1]
-    option.classList.add("correct")
+    transitioning = true;
+    let question_holder = document.getElementById("QuestionHolder");
+    let option = question_holder.children[answer_number-1];
+    option.classList.add("correct");
     setTimeout(() => {
-        score += 1
-        next_question()
+        score += 1;
+        next_question();
     }, 700);
 }
 
 function incorrect_answer_clicked(answer_number) {
     if (transitioning) {
-        return
+        return;
     }
 	const audio = new Audio('audio/select_incorrect.mp3');
 	audio.play();
-    transitioning = true
-    let question_holder = document.getElementById("QuestionHolder")
-    let option = question_holder.children[answer_number-1]
-    option.classList.add("incorrect")
+    transitioning = true;
+    let question_holder = document.getElementById("QuestionHolder");
+    let option = question_holder.children[answer_number-1];
+    option.classList.add("incorrect");
     setTimeout(() => {
-        let i = 0
+        let i = 0;
         while (i < questions[question_number-1][5].length) {
-            // console.log(questions[question_number-1][5][i])
+            // console.log(questions[question_number-1][5][i]);
             if (questions[question_number-1][5][i] == 1) {
-                question_holder.children[i].classList.add("correct")
+                question_holder.children[i].classList.add("correct");
             }
-            i++
+            i++;
         }
 		const audio2 = new Audio('audio/click.mp3');
 		audio2.play();
         setTimeout(() => {
-            score += 0
-            next_question()
+            score += 0;
+            next_question();
         }, 1000);
     }, 500);
 }
@@ -87,15 +87,15 @@ function incorrect_answer_clicked(answer_number) {
 function next_question() {
 	const audio = new Audio('audio/swoop.mp3');
 	audio.play();
-    let main = document.getElementById("Main")
-    main.style.transform = "translate(-100vw, 0)"
+    let main = document.getElementById("Main");
+    main.style.transform = "translate(-100vw, 0)";
     setTimeout(() => {
         setTimeout(() => {
-            question_number += 1
+            question_number += 1;
             if (question_number < questions.length+1) {
-                load_question(question_number)
+                load_question(question_number);
             } else {
-                end_quiz()
+                end_quiz();
             }
         }, 350);
     }, 200);
@@ -104,59 +104,59 @@ function next_question() {
 function load_question(question_number) {
 	if (question_shuffle && question_number == 1) {
 		for (let i = questions.length - 1; i > 0; i--) { //magic ig
-			const j = Math.floor(Math.random() * (i + 1))
-			;[questions[i], questions[j]] = [questions[j], questions[i]]
+			const j = Math.floor(Math.random() * (i + 1));
+			[questions[i], questions[j]] = [questions[j], questions[i]];
 		}
 	}
 
-    transitioning = false
-    let main = document.getElementById("Main")
-    main.style.transition = "none"
-    main.innerHTML = ""
-    main.style.transform = "translate(0, 0)"
+    transitioning = false;
+    let main = document.getElementById("Main");
+    main.style.transition = "none";
+    main.innerHTML = "";
+    main.style.transform = "translate(0, 0)";
     setTimeout(() => {
-        main.style.transition = "all cubic-bezier(0.6,-0.46, 0.31, 0.95) 0.6s"
+        main.style.transition = "all cubic-bezier(0.6,-0.46, 0.31, 0.95) 0.6s";
     }, 100);
 
-    let question = questions[question_number - 1]
+    let question = questions[question_number - 1];
 
-    let container = document.createElement('div')
-    container.classList.add("question_container")
-    container.id = "Question" + question_number
+    let container = document.createElement('div');
+    container.classList.add("question_container");
+    container.id = "Question" + question_number;
 
-    let q_title = document.createElement("h2")
-    q_title.textContent = question[0]
-    container.appendChild(q_title)
+    let q_title = document.createElement("h2");
+    q_title.textContent = question[0];
+    container.appendChild(q_title);
 
-    let question_holder = document.createElement("div")
-    question_holder.classList.add("answer_container")
-    question_holder.id = "QuestionHolder"
+    let question_holder = document.createElement("div");
+    question_holder.classList.add("answer_container");
+    question_holder.id = "QuestionHolder";
 	if (option_shuffle) {
-		let options = []
+		let options = [];
 		for (let i = 0; i < 4; i++) {
-			options.push([question[i + 1], question[5][i]])
+			options.push([question[i + 1], question[5][i]]);
 		}
 
 		for (let i = options.length - 1; i > 0; i--) {
-			const j = Math.floor(Math.random() * (i + 1))
-			;[options[i], options[j]] = [options[j], options[i]]
+			const j = Math.floor(Math.random() * (i + 1));
+			[options[i], options[j]] = [options[j], options[i]];
 		}
 
 		for (let i = 0; i < 4; i++) {
-			question[i + 1] = options[i][0]
-			question[5][i] = options[i][1]
+			question[i + 1] = options[i][0];
+			question[5][i] = options[i][1];
 		}
 	}
 
 	for (let i = 0; i < 4; i++) {
-		let answer = document.createElement("div")
-		answer.classList.add("answer")
-		answer.textContent = question[i + 1]
+		let answer = document.createElement("div");
+		answer.classList.add("answer");
+		answer.textContent = question[i + 1];
 
 		if (question[5][i] === 1) {
-			answer.onclick = () => correct_answer_clicked(i + 1)
+			answer.onclick = () => correct_answer_clicked(i + 1);
 		} else {
-			answer.onclick = () => incorrect_answer_clicked(i + 1)
+			answer.onclick = () => incorrect_answer_clicked(i + 1);
 		}
 
 		// add hover sound
@@ -169,54 +169,54 @@ function load_question(question_number) {
 			}
 		}
 
-		question_holder.appendChild(answer)
+		question_holder.appendChild(answer);
 	}
 
-    container.appendChild(question_holder)
+    container.appendChild(question_holder);
 
-    let question_numberer = document.createElement("h5")
-    question_numberer.textContent = "Question " + question_number + "/" + questions.length
-    main.appendChild(question_numberer)
-    main.appendChild(container)
-	transitioning = true
+    let question_numberer = document.createElement("h5");
+    question_numberer.textContent = "Question " + question_number + "/" + questions.length;
+    main.appendChild(question_numberer);
+    main.appendChild(container);
+	transitioning = true;
 	setTimeout(() => {
-		transitioning = false
+		transitioning = false;
 	}, 300);
 }
 
 function end_quiz() {
 	const audio = new Audio('audio/quiz_end.mp3');
 	audio.play();
-    let main = document.getElementById("Main")
-    main.style.transition = "none"
-    main.innerHTML = ""
-    main.style.transform = "translate(0, 0)"
+    let main = document.getElementById("Main");
+    main.style.transition = "none";
+    main.innerHTML = "";
+    main.style.transform = "translate(0, 0)";
 
-    let end_header = document.createElement("h3")
-    end_header.textContent = "Your score: "+score+" out of "+questions.length
-    main.appendChild(end_header)
+    let end_header = document.createElement("h3");
+    end_header.textContent = "Your score: "+score+" out of "+questions.length;
+    main.appendChild(end_header);
 
-	let retry_button = document.createElement("div")
-	retry_button.classList.add("retry_button")
-	retry_button.textContent = "Retry Quiz"
+	let retry_button = document.createElement("div");
+	retry_button.classList.add("retry_button");
+	retry_button.textContent = "Retry Quiz";
 	retry_button.onclick = () => {
-		question_number = 1
-		score = 0
-		load_question(question_number)
+		question_number = 1;
+		score = 0;
+		load_question(question_number);
 		const audio = new Audio('audio/bloop.mp3');
 		audio.play();
 	}
-	main.appendChild(retry_button)
+	main.appendChild(retry_button);
 
-	let home_button = document.createElement("div")
-	home_button.classList.add("retry_button")
-	home_button.textContent = "Return Home"
+	let home_button = document.createElement("div");
+	home_button.classList.add("retry_button");
+	home_button.textContent = "Return Home";
 	home_button.onclick = () => {
-		home()
+		home();
 		const audio = new Audio('audio/bloop.mp3');
 		audio.play();
 	}
-	main.appendChild(home_button)
+	main.appendChild(home_button);
 }
 
 function home() {
