@@ -237,6 +237,10 @@ h5 {
 }
 
 @media only screen and (max-width: 800px) {
+	h2 {
+		width: 95%;
+		margin: 2.5%;
+	}
 	.answer_container {
 		scale: 1;
 		width: 95%;
