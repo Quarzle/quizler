@@ -61,6 +61,7 @@ button:hover {
 }
 
 .settings_line_toggle {
+	user-select: none;
 	display: flex;
 	align-items: center;
 	justify-content: space-between;
@@ -72,6 +73,7 @@ button:hover {
 }
 
 .toggle {
+	user-select: none;
 	display: inline-block;
 	margin: 10px;
 	width: 40px;
@@ -100,4 +102,40 @@ button:hover {
 .toggle.toggled {
 	transition: all 0.3s;
 	background-color: rgb(114, 0, 46);
+}
+
+@media only screen and (max-width: 600px) {
+	h1.hero {
+		font-size: 4.5em;
+	}
+	
+	.centre {
+		width: 60%;
+		margin-left: 20%;
+	}
+}
+
+@media only screen and (max-height: 650px) {
+	h1.hero {
+		font-size: 4.5em;
+	}
+}
+
+@media only screen and (max-height: 530px) {
+	h1.hero {
+		margin: 0%;
+		padding: 7%;
+	}
+}
+
+@media only screen and (max-height: 400px) {
+	.settings_line_toggle {
+		padding: 5px;
+	}
+	br {
+		display: none;
+	}
+	h1.hero {
+		font-size: 3em;
+	}
 }

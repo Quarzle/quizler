@@ -3,7 +3,7 @@ body{
     margin: 0;
     font-family: monospace;
     background-color: rgb(224, 0, 90);
-    overflow: hidden;
+    overflow-x: hidden;
     color: aliceblue;
 }
 
@@ -234,4 +234,38 @@ h5 {
     box-shadow: 0 0 20px rgba(255, 255, 255, 0.9);
     transition: all 0.2s;
 	scale: 1.02;
+}
+
+@media only screen and (max-width: 800px) {
+	.answer_container {
+		scale: 1;
+		width: 95%;
+		margin: auto;
+	}
+}
+
+@media only screen and (max-height: 610px) {
+	h2 {
+		font-size: 2em;
+		margin-top: 7%;
+		margin-bottom: 8%;
+	}
+	.answer {
+		font-size: 1em;
+		margin: 1%;
+		width: 40%;
+	}
+}
+
+@media only screen and (max-height: 500px) {
+	h2 {
+		font-size: 1.75em;
+		margin-top: 5%;
+		margin-bottom: 6%;
+	}
+	.answer {
+		font-size: 1em;
+		margin: 1%;
+		width: 40%;
+	}
 }
