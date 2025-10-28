@@ -105,6 +105,7 @@ function find_available_quizzes() {
 					quizOption.onclick = () => quiz(currentIndex); // use captured variable
 
 					dropdownContent.appendChild(quizOption);
+					// dropdownContent.insertBefore(quizOption, dropdownContent.lastElementChild);
 				}
 			}
 
