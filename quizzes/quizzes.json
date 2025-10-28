@@ -11,6 +11,10 @@
     {
       "name": "Music Quiz",
       "file": "music_quiz.json"
+    },
+    {
+      "name": "Physics Quiz",
+      "file": "physics_quiz.json"
     }
   ]
 }

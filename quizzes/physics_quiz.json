@@ -1,0 +1,66 @@
+[
+    [
+        "What formula could you use when determining the final velocity of an object accelerating?",
+        "Ff = Vi + at",
+        "F = ma",
+        "V = d/t",
+        "p = mv",
+        [ 1, 0, 0, 0 ]
+    ],
+    [
+        "As a bike turns a corner, what force is the centripetal force?",
+        "Gravity",
+        "Friction",
+        "Elastic",
+        "Kinetic",
+        [ 0, 1, 0, 0 ]
+    ],
+    [
+        "What quantity is conserved with inelastic collisions with no external forces?",
+        "Energy",
+        "Momentum",
+        "Elasticity",
+        "Number of protons per person",
+        [ 0, 1, 0, 0 ]
+    ],
+    [
+        "What SI unit is used for electric charge?",
+        "Volts",
+        "Watts",
+        "Coulombs",
+        "Henrys",
+        [ 0, 0, 1, 0 ]
+    ],
+    [
+        "In a LCR circuit when is the current highest?",
+        "When Xc = Xl",
+        "When Z = R",
+        "When the impedance is lowest",
+        "All of the above",
+        [ 0, 0, 0, 1 ]
+    ],
+    [
+        "Watts is 1 joule over what?",
+        "One second",
+        "One ampere",
+        "Coulombs",
+        "All of the above",
+        [ 1, 0, 0, 0 ]
+    ],
+    [
+        "A system is in equilibrium when: ",
+        "Σ of forces and torques > 0",
+        "Σ of forces and torques = 0",
+        "Σ of forces < 0 and torques = 0",
+        "None of the above",
+        [ 0, 1, 0, 0 ]
+    ],
+    [
+        "What is the definition of voltage?",
+        "Electromagnetic potential energy",
+        "Electric potential energy per unit charge",
+        "Current per second",
+        "Power per unit time",
+        [ 0, 1, 0, 0 ]
+    ]
+]
