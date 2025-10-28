@@ -155,6 +155,8 @@ button:hover {
 /* Show the dropdown menu on hover */
 .dropdown:hover .dropdown-content {
 	display: block;
+	position: absolute;
+	/* right: -100%; */
 }
 
 /* Change the background color of the dropdown button when the dropdown content is shown */
@@ -171,6 +173,10 @@ button:hover {
 	.centre {
 		width: 60%;
 		margin-left: 20%;
+	}
+
+	.dropdown-content {
+		left: -150%;
 	}
 }
 

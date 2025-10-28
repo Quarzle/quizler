@@ -1,39 +1,9 @@
-new Audio('audio/bloop.mp3');
-new Audio('audio/click.mp3');
-new Audio('audio/quiz_end.mp3');
-new Audio('audio/select_correct.mp3');
-new Audio('audio/select_incorrect.mp3');
-new Audio('audio/swoop.mp3');
 
 let question_number = 1;
 let score = 0;
 let transitioning = false;
 let option_shuffle = false;
 let question_shuffle = false;
-
-const random_quiz = [
-    ["What is the square root of 169", "1", "-44", "13", "67", [0, 0, 1, 0]],
-    ["How many moons does jupiter have?", "Exactly 1", "More than 11", "I don't know", "I don't care", [0, 1, 0, 0]],
-    ["A trigonal planar shape forms when a molecule has what number of bonded electron regions around the central atom?", "1", "2", "3", "4", [0, 0, 1, 0]],
-    ["How many letters are in the english alphabet?", "1", "26", "36", "24", [0, 1, 0, 0]],
-    ["What year did the american revolution start?", "1776", "6767", "1936", "2024", [1, 0, 0, 0]],
-    ["What clef puts middle c in the middle of the stave?", "The treble clef", "The alto clef", "The tenor clef", "The bass clef", [0, 1, 0, 0]],
-    ["What is the name of a twelve sided shape?", "Heptagon", "Dodecagon", "Icosahedron", "Dodecahedron", [0, 1, 0, 1]],
-    ["which of the following is a square root of 1?", "-1", "-2", "0.1", "10", [1, 0, 0, 0]]
-];
-
-const chemistry_quiz = [
-    ["A trigonal planar shape forms when a molecule has what number of bonded electron regions around the central atom?", "1", "2", "3", "4", [0, 0, 1, 0]],
-    ["If a solid is brittle, what is the most likely type of bond within it?", "Metallic", "Covalent", "Molecular", "Ionic", [0, 0, 0, 1]],
-    ["Which of the following is not a type of acid?", "H2SO4", "HCl", "NH3", "CH3COOH", [0, 0, 1, 0]],
-    ["Which of the following is not polar?", "H2O", "CH4", "O3", "CH3Cl", [0, 1, 0, 0]],
-    ["As pressure increases what does Kc do?", "Increases", "Decreases", "Stays the same", "It depends", [0, 0, 1, 0]],
-    ["Identify a weak acid:", "CH3COOH", "NH3", "H2SO4", "HNO3", [1, 0, 0, 0]],
-	["Which of the following elements has the highest electronegativity?", "Oxygen", "Fluorine", "Chlorine", "Nitrogen", [0, 1, 0, 0]],
-    ["What is the pH of a neutral solution at 25°C?", "0", "7", "14", "5", [0, 1, 0, 0]],
-    ["What happens to the rate of reaction when temperature increases?", "Decreases", "Stays the same", "Increases", "Stops", [0, 0, 1, 0]],
-	["Which factor does not affect the rate of a chemical reaction?", "Temperature", "Concentration", "Pressure", "Color of reactants", [0, 0, 0, 1]]
-];
 
 const music_quiz = [
     ["Common time, represented by a C, is equivalent to what time signature?", "4/4", "2/4", "3/4", "6/8", [1, 0, 0, 0]],
@@ -67,21 +37,23 @@ document.addEventListener('DOMContentLoaded', () => {
 	}
 
 	let quiz_to_take = JSON.parse(localStorage.getItem("quiz_number"));
-	switch (quiz_to_take) {
-		case 1:
-			questions = random_quiz
-			break;
-		case 2:
-			questions = chemistry_quiz
-			break;
-		case 3:
-			questions = music_quiz
-			break;
-		default:
-			break;
-	}
 
-    load_question(question_number);
+	setTimeout(() => {
+        load_quiz(quiz_to_take);
+    }, 3);
+	
+
+	// preload audio
+	new Audio('audio/bloop.mp3');
+	new Audio('audio/click.mp3');
+	new Audio('audio/quiz_end.mp3');
+	new Audio('audio/select_correct.mp3');
+	new Audio('audio/select_incorrect.mp3');
+	new Audio('audio/swoop.mp3');
+
+	setTimeout(() => {
+        load_question(question_number);
+    }, 67);
 });
 
 function correct_answer_clicked(answer_number) {
@@ -265,4 +237,26 @@ function end_quiz() {
 
 function home() {
 	window.open("index.html", "_self");
+}
+
+function load_quiz(quiz_number) {
+	// load quiz from /quizzes/quiz_name.json
+	fetch('/quizzes/')
+		.then(response => response.text())
+		.then(data => {
+			const parser = new DOMParser();
+			const doc = parser.parseFromString(data, 'text/html');
+			const links = doc.getElementsByTagName('a');
+			let quiz = links[quiz_number];
+			const quiz_href = quiz.getAttribute('href').split('%5C').pop();
+			fetch('/quizzes/' + quiz_href)
+				.then(response => response.json())
+				.then(data => {
+					console.log(data);
+					questions = data;
+				})
+				.catch(error => console.error("Error fetching quiz data:", error));
+
+		})
+		.catch(error => console.error("Error fetching quiz directory:", error));
 }
