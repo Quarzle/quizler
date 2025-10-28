@@ -46,9 +46,6 @@ document.addEventListener('DOMContentLoaded', () => {
 	new Audio('audio/select_incorrect.mp3');
 	new Audio('audio/swoop.mp3');
 
-	setTimeout(() => {
-        load_question(question_number);
-    }, 67);
 });
 
 function correct_answer_clicked(answer_number) {
@@ -260,6 +257,7 @@ function load_quiz() {
                     .then(response => response.json())
                     .then(quizData => {
                         questions = quizData;  // Store the loaded quiz data in a variable
+						load_question(question_number);
                     })
                     .catch(error => console.error("Error fetching quiz data:", error));
             } else {
