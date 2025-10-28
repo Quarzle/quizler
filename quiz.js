@@ -36,13 +36,8 @@ document.addEventListener('DOMContentLoaded', () => {
 		question_shuffle = false;
 	}
 
-	let quiz_to_take = JSON.parse(localStorage.getItem("quiz_number"));
-
-	setTimeout(() => {
-        load_quiz(quiz_to_take);
-    }, 3);
+    load_quiz();
 	
-
 	// preload audio
 	new Audio('audio/bloop.mp3');
 	new Audio('audio/click.mp3');
@@ -239,24 +234,37 @@ function home() {
 	window.open("index.html", "_self");
 }
 
-function load_quiz(quiz_number) {
-	// load quiz from /quizzes/quiz_name.json
-	fetch('./quizzes/')
-		.then(response => response.text())
-		.then(data => {
-			const parser = new DOMParser();
-			const doc = parser.parseFromString(data, 'text/html');
-			const links = doc.getElementsByTagName('a');
-			let quiz = links[quiz_number];
-			const quiz_href = quiz.getAttribute('href').split('%5C').pop();
-			fetch('/quizzes/' + quiz_href)
-				.then(response => response.json())
-				.then(data => {
-					console.log(data);
-					questions = data;
-				})
-				.catch(error => console.error("Error fetching quiz data:", error));
+function load_quiz() {
+    // Fetch the quizzes manifest file to get a list of available quizzes
+    fetch('./quizzes/quizzes.json')
+        .then(response => response.json())  // Parse the JSON manifest
+        .then(data => {
+            // loop through the quizzes to get the selected quiz
+			// data.find is not a function. Use a loop instead.
+            let quiz_name = localStorage.getItem('quiz_name');
+			let quiz = null;
+			console.log(data);
+			/*data is a json object; determine the array of quizzes inside it*/
+			let quizList = data.quizzes;
 
-		})
-		.catch(error => console.error("Error fetching quiz directory:", error));
+			for (let i = 0; i < quizList.length; i++) {
+				if (quizList[i].file === quiz_name) {
+					quiz = quizList[i];
+					break;
+				}
+			}
+			
+			if (quiz) {
+                // Fetch the quiz file using the filename from the manifest
+                fetch('./quizzes/' + quiz.file)  // Use the file name from the manifest
+                    .then(response => response.json())
+                    .then(quizData => {
+                        questions = quizData;  // Store the loaded quiz data in a variable
+                    })
+                    .catch(error => console.error("Error fetching quiz data:", error));
+            } else {
+                console.error("Quiz not found in manifest");
+            }
+        })
+        .catch(error => console.error("Error fetching quiz manifest:", error));
 }

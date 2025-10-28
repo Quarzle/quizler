@@ -1,0 +1,16 @@
+{
+  "quizzes": [
+    {
+      "name": "Test Quiz",
+      "file": "testing_quiz.json"
+    },
+    {
+      "name": "Chemistry Quiz",
+      "file": "chemistry_quiz.json"
+    },
+    {
+      "name": "Music Quiz",
+      "file": "music_quiz.json"
+    }
+  ]
+}

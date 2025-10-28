@@ -1,6 +1,12 @@
 
 document.addEventListener("DOMContentLoaded", () => {
+
+	if (localStorage.getItem("quiz_name") == null) {
+		localStorage.setItem("quiz_name", "testing_quiz.json");
+	}
+
 	find_available_quizzes();
+
 	let option_shuffle = localStorage.getItem("option_shuffle");
 	if (option_shuffle == "true") {
 		document.getElementById("OptionShuffleToggle").classList.add("toggled");
@@ -9,13 +15,6 @@ document.addEventListener("DOMContentLoaded", () => {
 	if (question_shuffle == "true") {
 		document.getElementById("QuestionShuffleToggle").classList.add("toggled");
 	}
-
-	if (localStorage.getItem("quiz_number") == null) {
-		localStorage.setItem("quiz_number", "1");
-	}
-	setTimeout(() => {
-		quiz(JSON.parse(localStorage.getItem("quiz_number")));
-	}, 67);
 
 	// preload audio
 	new Audio('audio/bloop.mp3');
@@ -64,51 +63,42 @@ function toggle_question_shuffle() {
 	document.getElementById("QuestionShuffleToggle").classList.toggle("toggled");
 }
 
-function quiz(quiz_number) {
-	localStorage.setItem("quiz_number", JSON.stringify(quiz_number));
-	let dropdown_content = document.getElementById("DropdownContent");
-	for (let dropdown_link of dropdown_content.children) {
-		dropdown_link.classList.remove("active");
-	}
-	console.log(quiz_number, dropdown_content.children.length);
-	if (quiz_number <= dropdown_content.children.length) {
-		dropdown_content.children[quiz_number-1].classList.add("active");
-	}
+function update_quiz_display(quiz_index) {
+    
+    let dropdown_content = document.getElementById("DropdownContent");
+    // Reset active class on all dropdown links
+    for (let dropdown_link of dropdown_content.children) {
+        dropdown_link.classList.remove("active");
+    }
+    if (quiz_index <= dropdown_content.children.length) {
+        dropdown_content.children[quiz_index - 1].classList.add("active");
+    }
 
-	let begin_button = document.getElementById("BeginButton");
-	// begin_button.textContent("");
 }
+
 
 // json quiz functions
 
 // find available quizzes in the /quizzes/ directory and list them in the dropdown menu
 function find_available_quizzes() {
-	fetch('./quizzes/')
-		.then(response => response.text())
-		.then(data => {
-			const parser = new DOMParser();
-			const doc = parser.parseFromString(data, 'text/html');
-			const links = doc.getElementsByTagName('a');
-			const dropdownContent = document.getElementById('DropdownContent');
-			let i = 0;
-			for (let link of links) {
-				const href = link.getAttribute('href');
-				if (href.endsWith('.json')) {
-					i += 1;
-					let currentIndex = i; // capture this iteration’s index
-
-					let quizName = href.replace('.json', '').split('%5C').pop();
-					let quizOption = document.createElement('a');
-					quizOption.className = 'dropdown-link';
-					quizOption.textContent = quizName.charAt(0).toUpperCase() + quizName.slice(1).replace(/_/g, ' ');
-					
-					quizOption.onclick = () => quiz(currentIndex); // use captured variable
-
-					dropdownContent.appendChild(quizOption);
-					// dropdownContent.insertBefore(quizOption, dropdownContent.lastElementChild);
+    fetch('./quizzes/quizzes.json')  // Fetch the manifest
+        .then(response => response.json())
+        .then(data => {
+            const dropdownContent = document.getElementById('DropdownContent');
+            data.quizzes.forEach((quiz, index) => {
+                // Create a dropdown link for each quiz
+                let quizOption = document.createElement('a');
+                quizOption.className = 'dropdown-link';
+                quizOption.textContent = quiz.name;  // Display the quiz name
+                quizOption.onclick = () => {
+                    localStorage.setItem('quiz_name', quiz.file);  // Save the selected quiz filename
+                    update_quiz_display(index + 1);  // Load the selected quiz
+                };
+                dropdownContent.appendChild(quizOption);  // Add the link to the dropdown
+				if (localStorage.getItem("quiz_name") == quiz.file) {
+					update_quiz_display(index + 1);
 				}
-			}
-
-		})
-		.catch(error => console.error("Error fetching quiz directory:", error));
+            });
+        })
+        .catch(error => console.error("Error fetching quiz manifest:", error));
 }
