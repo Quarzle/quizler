@@ -141,6 +141,7 @@ button:hover {
 	background-color: #ccc;
 	/* text-decoration: underline; */
 	display: block;
+	transition: all ease 50ms;
 }
 
 /* Change color of dropdown links on hover */

@@ -35,6 +35,20 @@ const chemistry_quiz = [
 	["Which factor does not affect the rate of a chemical reaction?", "Temperature", "Concentration", "Pressure", "Color of reactants", [0, 0, 0, 1]]
 ];
 
+const music_quiz = [
+    ["Common time, represented by a C, is equivalent to what time signature?", "4/4", "2/4", "3/4", "6/8", [1, 0, 0, 0]],
+    ["How many semitones are there in one octave?", "8", "10", "12", "14", [0, 0, 1, 0]],
+	["What key is an alto saxophone in?", "C", "D", "E♭", "A♭", [0, 0, 1, 0]],
+	["Which of the following is not a transposing instrument?", "Cello", "Double bass", "Clarinet", "Trumpet", [1, 0, 0, 0]],
+	["How many lines are there on a standard music stave?", "3", "4", "5", "6", [0, 0, 1, 0]],
+	["What is the relative minor of C major?", "A minor", "E minor", "D minor", "G minor", [1, 0, 0, 0]],
+    ["What key has one sharp in its key signature?", "G major", "D major", "A major", "F minor", [1, 0, 0, 0]],
+    ["What clef puts middle c in the middle of the stave?", "The treble clef", "The alto clef", "The tenor clef", "The bass clef", [0, 1, 0, 0]]
+
+	// ["?", "1", "2", "3", "4", [0, 0, 0, 0]],
+
+];
+
 let questions = [["This quiz is not configured correctly", "1", "2", "3", "4", [1, 1, 1, 1]]];
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -59,6 +73,9 @@ document.addEventListener('DOMContentLoaded', () => {
 			break;
 		case 2:
 			questions = chemistry_quiz
+			break;
+		case 2:
+			questions = music_quiz
 			break;
 		default:
 			break;
