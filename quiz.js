@@ -74,7 +74,7 @@ document.addEventListener('DOMContentLoaded', () => {
 		case 2:
 			questions = chemistry_quiz
 			break;
-		case 2:
+		case 3:
 			questions = music_quiz
 			break;
 		default:
