@@ -83,7 +83,7 @@ function quiz(quiz_number) {
 
 // find available quizzes in the /quizzes/ directory and list them in the dropdown menu
 function find_available_quizzes() {
-	fetch('/quizler/quizzes/')
+	fetch('/quizzes/')
 		.then(response => response.text())
 		.then(data => {
 			const parser = new DOMParser();

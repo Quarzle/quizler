@@ -241,7 +241,7 @@ function home() {
 
 function load_quiz(quiz_number) {
 	// load quiz from /quizzes/quiz_name.json
-	fetch('/quizler/quizzes/')
+	fetch('/quizzes/')
 		.then(response => response.text())
 		.then(data => {
 			const parser = new DOMParser();
