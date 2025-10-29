@@ -220,6 +220,7 @@ button:hover {
 @media only screen and (max-height: 650px) {
 	h1.hero {
 		font-size: 4.5em;
+		padding: 6%;
 	}
 	.dropdown-content {
 		max-height: 200px;
@@ -230,7 +231,7 @@ button:hover {
 @media only screen and (max-height: 530px) {
 	h1.hero {
 		margin: 0%;
-		padding: 7%;
+		padding: 5%;
 	}
 	.dropdown-content {
 		max-height: 120px;
@@ -238,7 +239,7 @@ button:hover {
 	}
 }
 
-@media only screen and (max-height: 400px) {
+@media only screen and (max-height: 410px) {
 	.settings_line_toggle {
 		padding: 5px;
 	}
