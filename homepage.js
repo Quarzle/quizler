@@ -71,7 +71,12 @@ function update_quiz_display(quiz_index) {
         dropdown_link.classList.remove("active");
     }
     if (quiz_index <= dropdown_content.children.length) {
-        dropdown_content.children[quiz_index - 1].classList.add("active");
+		let active = dropdown_content.children[quiz_index - 1];
+		active.classList.add("active");
+		active.classList.add("animate");
+		setTimeout(() => {
+			active.classList.remove("animate")
+		}, 150);
     }
 
 }

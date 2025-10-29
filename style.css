@@ -146,12 +146,33 @@ button:hover {
 	transition: all ease 50ms;
 }
 
+.dropdown-content a.active.animate {
+	animation: bounce 0.15s ease forwards;
+}
+
 /* Change color of dropdown links on hover */
 .dropdown-content a:hover {
 	background-color: #ddd;
 	border-radius: 5px;
 	cursor: pointer;
 	user-select: none;
+}
+
+.dropdown-content a.active:hover {
+	cursor: default;
+	background-color: #bbb;
+}
+
+@keyframes bounce {
+	0% {
+		scale: 1;
+	}
+	30% {
+		scale: 0.97;
+	}
+	100% {
+		scale: 1;
+	}
 }
 
 /* Show the dropdown menu on hover */
