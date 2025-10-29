@@ -62,5 +62,21 @@
         "Current per second",
         "Power per unit time",
         [ 0, 1, 0, 0 ]
+    ],
+        [
+        "What happens to the resistance of a wire as its temperature increases?",
+        "It decreases",
+        "It increases",
+        "It stays the same",
+        "It becomes zero",
+        [0, 1, 0, 0]
+    ],
+    [
+        "Which law relates voltage, current, and resistance?",
+        "Newton's Second Law",
+        "Coulomb's Law",
+        "Ohm's Law",
+        "Faraday's Law",
+        [0, 0, 1, 0]
     ]
 ]

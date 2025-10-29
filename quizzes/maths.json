@@ -1,0 +1,82 @@
+[
+    [
+        "What does it mean for two expressions to be equivalent?",
+        "They look the same",
+        "They have the same value for all variable inputs",
+        "They have the same coefficients",
+        "They can be graphed on the same axis",
+        [0, 1, 0, 0]
+    ],
+    [
+        "What is the solution to an equation?",
+        "The variable itself",
+        "A value that makes the equation true",
+        "A number you plug into any equation",
+        "The slope of a line",
+        [0, 1, 0, 0]
+    ],
+    [
+        "What does the slope represent in a linear equation y = mx + b?",
+        "The y-intercept",
+        "The rate of change of y with respect to x",
+        "The horizontal intercept",
+        "The average of x and y",
+        [0, 1, 0, 0]
+    ],
+    [
+        "In the equation y = mx + b, what does b represent?",
+        "The slope",
+        "The y-intercept",
+        "The x-intercept",
+        "The rate of change",
+        [0, 1, 0, 0]
+    ],
+    [
+        "If two lines are parallel, what is true about their slopes?",
+        "They are equal",
+        "They are opposites",
+        "Their product is 1",
+        "They intersect at one point",
+        [1, 0, 0, 0]
+    ],
+    [
+        "What is a variable in algebra?",
+        "A symbol that represents an unknown or changeable value",
+        "A fixed numerical value",
+        "A mathematical constant",
+        "An operation sign",
+        [1, 0, 0, 0]
+    ],
+    [
+        "What does it mean for an equation to be quadratic?",
+        "It contains x raised to the power of 3",
+        "It contains x raised to the power of 2",
+        "It has two solutions only",
+        "It forms a straight line when graphed",
+        [0, 1, 0, 0]
+    ],
+    [
+        "What does factoring an expression do?",
+        "Simplifies it by combining like terms",
+        "Rewrites it as a product of simpler expressions",
+        "Finds the value of x",
+        "Changes the coefficients",
+        [0, 1, 0, 0]
+    ],
+    [
+        "What does it mean for a line to have a negative slope?",
+        "It rises from left to right",
+        "It falls from left to right",
+        "It is horizontal",
+        "It is vertical",
+        [0, 1, 0, 0]
+    ],
+    [
+        "What is the purpose of using the distributive property?",
+        "To divide one expression by another",
+        "To multiply a term across terms inside parentheses",
+        "To find the intercepts of a line",
+        "To simplify fractions",
+        [0, 1, 0, 0]
+    ]
+]
