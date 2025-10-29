@@ -1,0 +1,82 @@
+[
+    [
+        "What is the formula for aggregate demand?",
+        "C + I + G + (X - M)",
+        "X - M",
+        "C + I + G - X",
+        "C + I + G + A + R",
+        [1, 0, 0, 0]
+    ],
+    [
+        "An increase in productivity shifts _________ to the right",
+        "Aggregate supply",
+        "Aggregate demand",
+        "FOREX",
+        "Inflation",
+        [1, 0, 0, 0]
+    ],
+    [
+        "A fall in interest rates is most likely to increase:",
+        "Government spending",
+        "Taxes",
+        "Investment spending",
+        "Imports",
+        [0, 0, 1, 0]
+    ],
+    [
+        "Which of the following is a leakage from the circular flow of income?",
+        "Exports",
+        "Investment",
+        "Savings",
+        "Government spending",
+        [0, 0, 1, 0]
+    ],
+    [
+        "Which policy would a government use to reduce demand-pull inflation?",
+        "Increase exports",
+        "Increase interest rates",
+        "Increase government spending",
+        "Reduce taxes",
+        [0, 1, 0, 0]
+    ],
+    [
+        "An increase in consumer confidence will shift:",
+        "Aggregate supply to the right",
+        "Aggregate demand to the left",
+        "Aggregate demand to the right",
+        "Aggregate supply to the left",
+        [0, 0, 1, 0]
+    ],
+    [
+        "Which of the following best describes GDP?",
+        "The total value of final goods and services produced within a country in a year",
+        "The total value of government spending",
+        "The total value of exports minus imports",
+        "The total amount of money in circulation",
+        [1, 0, 0, 0]
+    ],
+    [
+        "If imports increase and exports stay the same, aggregate demand will:",
+        "Double",
+        "Decrease",
+        "Increase",
+        "Stay the same",
+        [0, 1, 0, 0]
+    ],
+    [
+        "Which of the following is an example of expansionary fiscal policy?",
+        "Cutting income tax",
+        "Increasing taxes on imports",
+        "Raising the official cash rate",
+        "Reducing government spending",
+        [1, 0, 0, 0]
+    ],
+    [
+        "If the economy is operating below full employment, a suitable policy response might be to:",
+        "Raise interest rates",
+        "Increase government spending",
+        "Cut transfer payments",
+        "Increase taxes",
+        [0, 1, 0, 0]
+    ]
+]

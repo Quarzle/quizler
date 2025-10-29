@@ -1,0 +1,82 @@
+[
+    [
+        "Which of the following is not a language technique?",
+        "Metaphor",
+        "Setting",
+        "Alliteration",
+        "Connotations",
+        [0, 1, 0, 0]
+    ],
+    [
+        "What is the main purpose of using imagery in writing?",
+        "To confuse the reader",
+        "To create vivid mental pictures",
+        "To make the text longer",
+        "To summarize the story",
+        [0, 1, 0, 0]
+    ],
+    [
+        "Which technique is being used in the phrase ‘the wind whispered through the trees’?",
+        "Personification",
+        "Simile",
+        "Metaphor",
+        "Onomatopoeia",
+        [1, 0, 0, 0]
+    ],
+    [
+        "In a narrative, what is the 'climax'?",
+        "The introduction of characters",
+        "The most intense or exciting moment",
+        "The resolution of the story",
+        "A description of the setting",
+        [0, 1, 0, 0]
+    ],
+    [
+        "What does the term ‘tone’ refer to in a text?",
+        "The author’s attitude toward the subject",
+        "The length of the sentences",
+        "The rhyme scheme of the poem",
+        "The type of genre",
+        [1, 0, 0, 0]
+    ],
+    [
+        "Which of the following is an example of a simile?",
+        "Her smile was sunshine.",
+        "Her smile shone like the sun.",
+        "The sunshine smiled down.",
+        "She was the sun.",
+        [0, 1, 0, 0]
+    ],
+    [
+        "What does 'first-person narration' use?",
+        "He, she, they",
+        "You",
+        "I, me, we",
+        "Their, them",
+        [0, 0, 1, 0]
+    ],
+    [
+        "What is the effect of using repetition in a speech?",
+        "It makes the message memorable and emphatic",
+        "It confuses the audience",
+        "It changes the topic",
+        "It creates a random rhythm",
+        [1, 0, 0, 0]
+    ],
+    [
+        "What is the term for a contrast between expectation and reality?",
+        "Irony",
+        "Metaphor",
+        "Imagery",
+        "Hyperbole",
+        [1, 0, 0, 0]
+    ],
+    [
+        "What does ‘connotation’ mean?",
+        "The dictionary definition of a word",
+        "The sound of a word",
+        "The emotional or cultural associations of a word",
+        "The structure of a sentence",
+        [0, 0, 1, 0]
+    ]
+]

@@ -15,6 +15,14 @@
     {
       "name": "Maths Quiz",
       "file": "maths.json"
+    },
+    {
+      "name": "English Quiz",
+      "file": "english_quiz.json"
+    },
+    {
+      "name": "Economics Quiz",
+      "file": "eco_quiz.json"
     }
   ]
 }
