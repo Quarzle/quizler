@@ -6,6 +6,9 @@ let option_shuffle = false;
 let question_shuffle = false;
 let reverse_mode = false; // the correct answer is given and players must find the question
 
+// get the current time in seconds
+let time = new Date().getTime() / 1000;
+
 let questions = [["This quiz is not configured correctly", "1", "2", "3", "4", [1, 1, 1, 1]]];
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -119,6 +122,7 @@ function next_question() {
 
 function load_question(question_number) {
 	if (question_shuffle && question_number == 1) {
+		time = new Date().getTime() / 1000;
 		for (let i = questions.length - 1; i > 0; i--) { //magic ig
 			const j = Math.floor(Math.random() * (i + 1));
 			[questions[i], questions[j]] = [questions[j], questions[i]];
@@ -250,6 +254,7 @@ function load_question(question_number) {
 }
 
 function end_quiz() {
+	let final_time = (new Date().getTime() / 1000) - time
 	const audio = new Audio('audio/quiz_end.mp3');
 	audio.play();
     let main = document.getElementById("Main");
@@ -258,8 +263,36 @@ function end_quiz() {
     main.style.transform = "translate(0, 0)";
 
     let end_header = document.createElement("h3");
+	end_header.classList.add("top");
     end_header.textContent = "Your score: "+score+" out of "+questions.length;
+
+	let best_score = localStorage.getItem("best_score_"+localStorage.getItem("quiz_name"));
+	let best_score_header = document.createElement("h3");
+	if (best_score == null || score > parseInt(best_score)) {
+		localStorage.setItem("best_score_"+localStorage.getItem("quiz_name"), score.toString());
+		best_score_header.textContent = "New best score!";
+	}else {
+		best_score_header.textContent = "Best score: "+best_score;
+	}
+	
+	let best_time = localStorage.getItem("best_time_"+localStorage.getItem("quiz_name"));
+	let best_time_header = document.createElement("h3");
+	if (best_time == null || final_time < parseFloat(best_time)) {
+		localStorage.setItem("best_time_"+localStorage.getItem("quiz_name"), final_time.toString());
+	}
+	let time_header = document.createElement("h3");
+    time_header.textContent = "Your time: "+format_time(final_time);
+	if (best_time == null || final_time < parseFloat(best_time)) {
+		best_time_header.textContent = "New best time!";
+	}else {
+		best_time_header.textContent = "Best time: "+format_time(parseFloat(best_time));
+	}
+	best_time_header.classList.add("bottom");
+
     main.appendChild(end_header);
+	main.appendChild(best_score_header);
+	main.appendChild(time_header);
+	main.appendChild(best_time_header);
 
 	let retry_button = document.createElement("div");
 	retry_button.classList.add("retry_button");
@@ -282,6 +315,28 @@ function end_quiz() {
 		audio.play();
 	}
 	main.appendChild(home_button);
+}
+
+function format_time(time_seconds) {
+	let minutes = Math.floor(time_seconds / 60);
+	let seconds = Math.round(time_seconds % 60);
+	if (time_seconds % 60 < 10) {
+		seconds = "0"+seconds;
+	}
+	if (minutes == 1) {
+		
+		if (time_seconds % 60 == 1) {
+			return minutes+" minute and "+seconds+" second";
+		} else {
+			return minutes+" minute and "+seconds+" seconds";
+		}
+	} else {
+		if (time_seconds % 60 == 1) {
+			return minutes+" minutes and "+seconds+" second";
+		} else {
+			return minutes+" minutes and "+seconds+" seconds";
+		}
+	}
 }
 
 function removeItemAll(arr, value) {

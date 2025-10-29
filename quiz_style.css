@@ -63,10 +63,15 @@ h2 {
 }
 
 h3 {
-    margin-top: 10%;
-    margin-bottom: 10%;
-    font-size: 2em;
-
+    font-size: 1.75em;
+}
+h3.top {
+    margin-top: 9%;
+    margin-bottom: 10px;
+}
+h3.bottom {
+    margin-top: 10px;
+    margin-bottom: 9%;
 }
 
 h5 {
