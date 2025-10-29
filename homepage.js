@@ -15,6 +15,14 @@ document.addEventListener("DOMContentLoaded", () => {
 	if (question_shuffle == "true") {
 		document.getElementById("QuestionShuffleToggle").classList.add("toggled");
 	}
+	let reverse_mode = localStorage.getItem("reverse_mode");
+	if (reverse_mode == "true") {
+		document.getElementById("ReverseModeToggle").classList.add("toggled");
+		document.getElementById("QuestionShuffleToggle").classList.add("toggled");
+		document.getElementById("OptionShuffleToggle").classList.add("toggled");
+		document.getElementById("QuestionShuffleToggle").parentElement.classList.add("locked");
+		document.getElementById("OptionShuffleToggle").parentElement.classList.add("locked");
+	}
 
 	// preload audio
 	new Audio('audio/bloop.mp3');
@@ -40,6 +48,12 @@ function run() {
 }
 
 function toggle_option_shuffle() {
+	if (localStorage.getItem("reverse_mode") == "true") {
+		const audio = new Audio('audio/tap.mp3');
+		audio.play();
+		return;
+	}
+
 	const audio = new Audio('audio/click.mp3');
 	audio.play();
 	let current = localStorage.getItem("option_shuffle");
@@ -52,6 +66,12 @@ function toggle_option_shuffle() {
 }
 
 function toggle_question_shuffle() {
+	if (localStorage.getItem("reverse_mode") == "true") {
+		const audio = new Audio('audio/tap.mp3');
+		audio.play();
+		return;
+	}
+
 	const audio = new Audio('audio/click.mp3');
 	audio.play();
 	let current = localStorage.getItem("question_shuffle");
@@ -61,6 +81,32 @@ function toggle_question_shuffle() {
 		localStorage.setItem("question_shuffle", "false");
 	}
 	document.getElementById("QuestionShuffleToggle").classList.toggle("toggled");
+}
+
+function toggle_reverse_mode() {
+	const audio = new Audio('audio/click.mp3');
+	audio.play();
+	let current = localStorage.getItem("reverse_mode");
+	if (current == "false" || current == null) {
+		localStorage.setItem("reverse_mode", "true");
+		document.getElementById("QuestionShuffleToggle").parentElement.classList.add("locked");
+		document.getElementById("OptionShuffleToggle").parentElement.classList.add("locked");
+		document.getElementById("QuestionShuffleToggle").classList.add("toggled");
+		document.getElementById("OptionShuffleToggle").classList.add("toggled");
+	} else {
+		localStorage.setItem("reverse_mode", "false");
+		document.getElementById("QuestionShuffleToggle").parentElement.classList.remove("locked");
+		document.getElementById("OptionShuffleToggle").parentElement.classList.remove("locked");
+		document.getElementById("QuestionShuffleToggle").classList.remove("toggled");
+		document.getElementById("OptionShuffleToggle").classList.remove("toggled");
+		if (localStorage.getItem("question_shuffle") == "true") {
+			document.getElementById("QuestionShuffleToggle").classList.add("toggled");
+		}
+		if (localStorage.getItem("option_shuffle") == "true") {
+			document.getElementById("OptionShuffleToggle").classList.add("toggled");
+		}
+	}
+	document.getElementById("ReverseModeToggle").classList.toggle("toggled");
 }
 
 function update_quiz_display(quiz_index) {
@@ -80,7 +126,6 @@ function update_quiz_display(quiz_index) {
     }
 
 }
-
 
 // json quiz functions
 

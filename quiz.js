@@ -4,10 +4,12 @@ let score = 0;
 let transitioning = false;
 let option_shuffle = false;
 let question_shuffle = false;
+let reverse_mode = false; // the correct answer is given and players must find the question
 
 let questions = [["This quiz is not configured correctly", "1", "2", "3", "4", [1, 1, 1, 1]]];
 
 document.addEventListener('DOMContentLoaded', () => {
+
 	let option_shuffle_setting = localStorage.getItem("option_shuffle");
 	if (option_shuffle_setting == "false") {
 		option_shuffle = false;
@@ -20,6 +22,15 @@ document.addEventListener('DOMContentLoaded', () => {
 		question_shuffle = true;
 	} else if (question_shuffle_setting == "false") {
 		question_shuffle = false;
+	}
+
+	let reverse_mode_setting = localStorage.getItem("reverse_mode");
+	if (reverse_mode_setting == "true") {
+		reverse_mode = true;
+		option_shuffle = true;
+		question_shuffle = true;
+	} else if (reverse_mode_setting == "false") {
+		reverse_mode = false;
 	}
 
     load_quiz();
@@ -62,13 +73,24 @@ function incorrect_answer_clicked(answer_number) {
     option.classList.add("incorrect");
     setTimeout(() => {
         let i = 0;
-        while (i < questions[question_number-1][5].length) {
-            // console.log(questions[question_number-1][5][i]);
-            if (questions[question_number-1][5][i] == 1) {
-                question_holder.children[i].classList.add("correct");
-            }
-            i++;
-        }
+		if (reverse_mode) {
+			while (i < question_holder.children.length) {
+				// find the position of the correct answer array in the questions array
+				if (questions[question_number-1][0] == question_holder.children[i].textContent) {
+						question_holder.children[i].classList.add("correct");
+					break;
+				}
+				i++;
+			}
+		} else {
+			while (i < questions[question_number-1][5].length) {
+				// console.log(questions[question_number-1][5][i]);
+				if (questions[question_number-1][5][i] == 1) {
+					question_holder.children[i].classList.add("correct");
+				}
+				i++;
+			}
+		}
 		const audio2 = new Audio('audio/click.mp3');
 		audio2.play();
         setTimeout(() => {
@@ -103,6 +125,8 @@ function load_question(question_number) {
 		}
 	}
 
+	
+
     transitioning = false;
     let main = document.getElementById("Main");
     main.style.transition = "none";
@@ -118,55 +142,102 @@ function load_question(question_number) {
     container.classList.add("question_container");
     container.id = "Question" + question_number;
 
-    let q_title = document.createElement("h2");
-    q_title.textContent = question[0];
-    container.appendChild(q_title);
-
-    let question_holder = document.createElement("div");
-    question_holder.classList.add("answer_container");
-    question_holder.id = "QuestionHolder";
-	if (option_shuffle) {
-		let options = [];
+	if (reverse_mode) {
+		let q_title = document.createElement("h2");
+		let answer_as_question = "This question has no correct answer configured.";
 		for (let i = 0; i < 4; i++) {
-			options.push([question[i + 1], question[5][i]]);
+			if (question[5][i] === 1) {
+				answer_as_question = question[i + 1];
+				break;
+			}
 		}
-
-		for (let i = options.length - 1; i > 0; i--) {
-			const j = Math.floor(Math.random() * (i + 1));
-			[options[i], options[j]] = [options[j], options[i]];
+		q_title.textContent = "Select the question for the answer: " + answer_as_question;
+		container.appendChild(q_title);
+		let available_questions = [...questions]; // stupid js
+		available_questions = removeItemAll(available_questions, question);
+		let answers = [];
+		answers.push(question[0]);
+		while (answers.length < 4) {
+			let random_index = Math.floor(Math.random() * available_questions.length);
+			let potential_question = available_questions[random_index][0];
+			if (!answers.includes(potential_question)) {
+				answers.push(potential_question);
+			}
 		}
-
-		for (let i = 0; i < 4; i++) {
-			question[i + 1] = options[i][0];
-			question[5][i] = options[i][1];
-		}
-	}
-
-	for (let i = 0; i < 4; i++) {
-		let answer = document.createElement("div");
-		answer.classList.add("answer");
-		answer.textContent = question[i + 1];
-
-		if (question[5][i] === 1) {
-			answer.onclick = () => correct_answer_clicked(i + 1);
-		} else {
-			answer.onclick = () => incorrect_answer_clicked(i + 1);
-		}
-
-		// add hover sound
-		answer.onmouseenter = () => {
-			if (!transitioning) {
-				// const audio = new Audio('audio/tap.mp3');
-				// // randomize pitch
-				// audio.playbackRate = Math.random() * (1.5 - 0.5) + 0.8;
-				// audio.play();
+		let question_holder = document.createElement("div");
+		question_holder.classList.add("answer_container");
+		question_holder.id = "QuestionHolder";
+		if (option_shuffle) {
+			for (let i = answers.length - 1; i > 0; i--) {
+				const j = Math.floor(Math.random() * (i + 1));
+				[answers[i], answers[j]] = [answers[j], answers[i]];
 			}
 		}
 
-		question_holder.appendChild(answer);
-	}
+		for (let i = 0; i < 4; i++) {
+			let answer = document.createElement("div");
+			answer.classList.add("answer");
+			answer.textContent = answers[i];
+			if (answers[i] === question[0]) {
+				answer.onclick = () => correct_answer_clicked(i + 1);
+			} else {
+				answer.onclick = () => incorrect_answer_clicked(i + 1);
+			}
+			question_holder.appendChild(answer);
+		}
+		container.appendChild(question_holder);
+	} else {
 
-    container.appendChild(question_holder);
+		let q_title = document.createElement("h2");
+		q_title.textContent = question[0];
+		container.appendChild(q_title);
+
+		let question_holder = document.createElement("div");
+		question_holder.classList.add("answer_container");
+		question_holder.id = "QuestionHolder";
+		if (option_shuffle) {
+			let options = [];
+			for (let i = 0; i < 4; i++) {
+				options.push([question[i + 1], question[5][i]]);
+			}
+
+			for (let i = options.length - 1; i > 0; i--) {
+				const j = Math.floor(Math.random() * (i + 1));
+				[options[i], options[j]] = [options[j], options[i]];
+			}
+
+			for (let i = 0; i < 4; i++) {
+				question[i + 1] = options[i][0];
+				question[5][i] = options[i][1];
+			}
+		}
+
+		for (let i = 0; i < 4; i++) {
+			let answer = document.createElement("div");
+			answer.classList.add("answer");
+			answer.textContent = question[i + 1];
+
+			if (question[5][i] === 1) {
+				answer.onclick = () => correct_answer_clicked(i + 1);
+			} else {
+				answer.onclick = () => incorrect_answer_clicked(i + 1);
+			}
+
+			// add hover sound
+			answer.onmouseenter = () => {
+				if (!transitioning) {
+					// const audio = new Audio('audio/tap.mp3');
+					// // randomize pitch
+					// audio.playbackRate = Math.random() * (1.5 - 0.5) + 0.8;
+					// audio.play();
+				}
+			}
+
+			question_holder.appendChild(answer);
+		}
+
+		container.appendChild(question_holder);
+	}
 
     let question_numberer = document.createElement("h5");
     question_numberer.textContent = "Question " + question_number + "/" + questions.length;
@@ -213,6 +284,18 @@ function end_quiz() {
 	main.appendChild(home_button);
 }
 
+function removeItemAll(arr, value) {
+  var i = 0;
+  while (i < arr.length) {
+    if (arr[i] === value) {
+      arr.splice(i, 1);
+    } else {
+      ++i;
+    }
+  }
+  return arr;
+}
+
 function home() {
 	window.open("index.html", "_self");
 }
@@ -226,7 +309,6 @@ function load_quiz() {
 			// data.find is not a function. Use a loop instead.
             let quiz_name = localStorage.getItem('quiz_name');
 			let quiz = null;
-			console.log(data);
 			/*data is a json object; determine the array of quizzes inside it*/
 			let quizList = data.quizzes;
 
