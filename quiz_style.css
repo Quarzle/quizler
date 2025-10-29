@@ -80,6 +80,8 @@ h5 {
 }
 
 .answer {
+	transform: translateZ(0);
+  	will-change: transform;
 	user-select: none;
     width: 40%;
     background-color: aliceblue;
@@ -213,6 +215,8 @@ h5 {
 }
 
 .retry_button {
+	transform: translateZ(0);
+  	will-change: transform;
 	user-select: none;
 	margin: 2%;
 	font-family: monospace;
